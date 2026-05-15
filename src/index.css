@@ -1,0 +1,36 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green:       #078930;
+  --yellow:      #FCDD09;
+  --red:         #DA121A;
+  --green-dim:   rgba(7,137,48,0.15);
+  --yellow-dim:  rgba(252,221,9,0.12);
+  --red-dim:     rgba(218,18,26,0.12);
+  --green-glow:  rgba(7,137,48,0.4);
+  --yellow-glow: rgba(252,221,9,0.35);
+  --red-glow:    rgba(218,18,26,0.35);
+  --bg:          #070707;
+  --surface:     rgba(255,255,255,0.04);
+  --border:      rgba(255,255,255,0.09);
+  --text:        #f5f0e8;
+  --muted:       #8a8070;
+  --gold:        #c9a84c;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; }

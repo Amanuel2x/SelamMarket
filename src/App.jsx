@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Loader from './components/Loader'
+import Hero from './components/Hero'
 import DictionaryCard from './components/DictionaryCard'
 import styles from './App.module.css'
 
@@ -9,10 +10,13 @@ export default function App() {
   return (
     <>
       <Loader onDone={() => setLoaded(true)} />
-      <main className={`${styles.page} ${loaded ? styles.visible : ''}`}>
-        <p className={styles.pageLabel}>Selam Market &mdash; Ethiopian &amp; Eritrean</p>
-        <DictionaryCard />
-      </main>
+      <div className={`${styles.site} ${loaded ? styles.visible : ''}`}>
+        <Hero />
+        <main className={styles.page}>
+          <p className={styles.pageLabel}>Selam Market &mdash; Word of Welcome</p>
+          <DictionaryCard />
+        </main>
+      </div>
     </>
   )
 }

@@ -7,8 +7,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse at 50% 40%, #111 0%, #040404 100%);
-  transition: opacity 0.85s ease, visibility 0.85s ease;
+  background: #faf8f4;
+  transition: opacity 0.75s ease, visibility 0.75s ease;
 }
 
 .loader.hidden {
@@ -17,201 +17,88 @@
   pointer-events: none;
 }
 
-/* ── particles ── */
-.particles {
+/* ── top flag bar (thin) ── */
+.flagBar {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  display: flex;
 }
-
-/* ── background star shape ── */
-.star {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  opacity: 0.035;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35' fill='%23FCDD09'/%3E%3C/svg%3E") center/contain no-repeat;
-  animation: spin 22s linear infinite;
-}
-
-/* ── rotating rings ── */
-.ringOuter {
-  position: absolute;
-  width: 460px;
-  height: 460px;
-  border-radius: 50%;
-  background: conic-gradient(
-    #078930  0deg 120deg,
-    #FCDD09  120deg 240deg,
-    #DA121A  240deg 360deg
-  );
-  animation: spin 6s linear infinite;
-}
-
-.ringOuter::after {
-  content: '';
-  position: absolute;
-  inset: 7px;
-  border-radius: 50%;
-  background: #060606;
-}
-
-.ringInner {
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: conic-gradient(
-    #DA121A  0deg 120deg,
-    #078930  120deg 240deg,
-    #FCDD09  240deg 360deg
-  );
-  animation: spin 4s linear infinite reverse;
-}
-
-.ringInner::after {
-  content: '';
-  position: absolute;
-  inset: 7px;
-  border-radius: 50%;
-  background: #060606;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+.flagBar span:nth-child(1) { flex: 1; background: #078930; }
+.flagBar span:nth-child(2) { flex: 1; background: #e6c800; }
+.flagBar span:nth-child(3) { flex: 1; background: #DA121A; }
 
 /* ── SELAM word ── */
 .word {
-  position: relative;
-  z-index: 2;
   display: flex;
   align-items: baseline;
   gap: 1px;
-  perspective: 900px;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
 }
 
-/* shimmer sweep */
-.word::after {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  background: linear-gradient(
-    108deg,
-    transparent 30%,
-    rgba(255,255,255,0.13) 50%,
-    transparent 70%
-  );
-  background-size: 220% 100%;
-  animation: shimmer 2.6s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* individual letters */
 .letter {
   font-family: 'Playfair Display', serif;
   font-weight: 900;
-  font-size: clamp(70px, 14vw, 112px);
+  font-size: clamp(72px, 14vw, 120px);
   line-height: 1;
   display: inline-block;
-  transform-style: preserve-3d;
-  animation: float 3.2s ease-in-out infinite, pulse 4s ease-in-out infinite;
-  text-shadow: 0 2px 0 rgba(0,0,0,0.4);
+  animation: letterPop 0.6s cubic-bezier(0.22,1,0.36,1) both, colorCycle 4s ease-in-out infinite;
 }
 
-/* Ethiopian color classes */
 .green  { color: #078930; }
-.yellow { color: #FCDD09; }
+.yellow { color: #c9a800; }
 .red    { color: #DA121A; }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0)     rotateX(0deg); }
-  50%       { transform: translateY(-12px) rotateX(5deg); }
+@keyframes letterPop {
+  from { opacity: 0; transform: translateY(20px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
 
-@keyframes pulse {
-  0%, 100% { filter: brightness(1)   drop-shadow(0 0 18px currentColor); }
-  30%       { filter: brightness(1.6) drop-shadow(0 0 55px currentColor); }
-  70%       { filter: brightness(1.9) drop-shadow(0 0 75px currentColor); }
+@keyframes colorCycle {
+  0%, 100% { filter: brightness(1); }
+  40%       { filter: brightness(1.15) saturate(1.2); }
+  70%       { filter: brightness(0.9) saturate(1.1); }
 }
 
 /* ── amharic ── */
 .amharic {
-  position: relative;
-  z-index: 2;
-  margin-top: 14px;
   font-family: 'Noto Serif Ethiopic', serif;
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  background: linear-gradient(90deg, #078930, #FCDD09 50%, #DA121A);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 100%;
-  animation: gradientSlide 3s ease-in-out infinite;
-}
-
-@keyframes gradientSlide {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #7a7060;
+  margin-bottom: 6px;
 }
 
 /* ── tagline ── */
 .tagline {
-  position: relative;
-  z-index: 2;
-  margin-top: 10px;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
-  letter-spacing: 0.38em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: rgba(245,240,232,0.45);
+  color: #b0a898;
+  margin-bottom: 48px;
 }
 
-/* ── progress bar ── */
-.barWrap {
-  position: absolute;
-  bottom: 48px;
-  width: 260px;
-  z-index: 2;
-}
-
-.barStripes {
+/* ── progress dots ── */
+.dots {
   display: flex;
-  height: 3px;
-  border-radius: 2px;
-  overflow: hidden;
-  gap: 3px;
+  gap: 8px;
 }
 
-.barStripes span {
-  flex: 1;
-  border-radius: 1px;
-  animation: barPulse 2.6s ease-in-out infinite;
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: dotPulse 1.4s ease-in-out infinite;
 }
 
-.barGreen  { background: #078930; animation-delay: 0s; }
-.barYellow { background: #FCDD09; animation-delay: 0.22s; }
-.barRed    { background: #DA121A; animation-delay: 0.44s; }
+.dot:nth-child(1) { background: #078930; animation-delay: 0s; }
+.dot:nth-child(2) { background: #c9a800; animation-delay: 0.2s; }
+.dot:nth-child(3) { background: #DA121A; animation-delay: 0.4s; }
 
-@keyframes barPulse {
-  0%   { opacity: 0.25; transform: scaleX(0.35); }
-  50%  { opacity: 1;    transform: scaleX(1); }
-  100% { opacity: 0.25; transform: scaleX(0.35); }
-}
-
-.barLabel {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 9.5px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.35);
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+  40%            { transform: scale(1);   opacity: 1; }
 }
